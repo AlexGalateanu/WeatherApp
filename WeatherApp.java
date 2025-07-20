@@ -1,5 +1,7 @@
+import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 import java.util.Scanner;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -11,7 +13,10 @@ public class WeatherApp {
             System.out.print("Introdu numele orașului: ");
             String city = input.nextLine();
 
-            String apiKey = "";
+            Properties props = new Properties();
+            FileInputStream fis = new FileInputStream("config.properties");
+            props.load(fis);
+            String apiKey = props.getProperty("apiKey");
             String urlString = String.format(
                 "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric&lang=ro",
                 city, apiKey);
